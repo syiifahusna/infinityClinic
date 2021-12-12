@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
 public class MedicineView {
 
     private JPanel mainPanel,registerPanel,editPanel;
-    private JLabel lblMedicine,lblSearch;;
+    private JLabel lblMedicine,lblSearch,lblMedicineId;
     private JButton btnRegisterMedicine,btnBack, btnRegister, btnSearch, btnUpdate;
     private JTextField txtSearch,txtMedicineName;
     private JTable tableMedicine;
@@ -26,8 +26,6 @@ public class MedicineView {
         frame.setLayout(null);
 
 
-
-
         main(frame);
 
         frame.setVisible(true);
@@ -39,7 +37,6 @@ public class MedicineView {
         });
 
     }
-
 
 
     private JPanel main(JFrame frame){
@@ -95,12 +92,8 @@ public class MedicineView {
 
         String[] thead={"Id","Medicine","Availability"};
 
-        //calling the boolean editCellAt to prevent editable cell;
-        tableMedicine = new JTable(tbody,thead){
-            public boolean editCellAt(int row, int column, java.util.EventObject e) {
-                return false;
-            }
-        };
+        tableMedicine = new JTable(tbody,thead);
+        tableMedicine.setDefaultEditor(Object.class, null);
 
         tableMedicine.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -181,9 +174,13 @@ public class MedicineView {
         frame.add(editPanel);
 
         //Adding Label to panel
-        lblMedicine = new JLabel("Edit Medicine " + id);
+        lblMedicine = new JLabel("Edit Medicine");
         lblMedicine.setBounds(50,20,100,30);
         editPanel.add(lblMedicine);
+
+        lblMedicineId = new JLabel(id);
+        lblMedicineId.setBounds(150,20,100,30);
+        editPanel.add(lblMedicineId);
 
         JLabel lblMedicine = new JLabel("Medicine Name:");
         lblMedicine.setBounds(50, 60 ,130, 30);

@@ -21,7 +21,7 @@ public class LoginView {
 
         JPanel panelImage=new JPanel();
         //add image to panel
-        panelImage.add(new JLabel(new ImageIcon("C:\\Users\\User\\Documents\\javaProj\\infinityClinic\\infinity.jpg")));
+        panelImage.add(new JLabel(new ImageIcon("infinity.jpg")));
         frame.add(panelImage);
 
         //=====================================
@@ -50,11 +50,12 @@ public class LoginView {
 
         btnLogin = new JButton("Login");
         btnLogin.setBounds(220,150,200,30);
-        btnLogin.addActionListener(e -> loginClick(panelRight));
+        //click
+        LoginController loginController = new LoginController();
+        loginController.loginClick(frame,btnLogin,txtUsername,txtPassword);
         panelRight.add(btnLogin);
 
         frame.add(panelRight);
-
         //use pack to resize according to component layout
         frame.pack();
         frame.setVisible(true);
@@ -67,24 +68,4 @@ public class LoginView {
 
     }
 
-    private void loginClick(JPanel panel){
-        JOptionPane.showMessageDialog(panel,"You Click Login");
-        //System.out.println(getTxtUsername());
-        //System.out.println(getTxtPassword());
-        //call Controller user here
-        //pass username and password
-        //if return true open home
-
-        HomeView home = new HomeView();
-        home.doctorHome();
-        home.staffHome();
-    }
-
-    public String getTxtUsername() {
-        return txtUsername.getText();
-    }
-
-    public String getTxtPassword() {
-        return String.valueOf(txtPassword.getPassword());
-    }
 }

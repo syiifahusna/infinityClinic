@@ -1,12 +1,16 @@
 package com.packageindex;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
-        //new LoginView();
 
-        HomeView home = new HomeView();
-        home.staffHome();
+        new LoginView();
 
     }
+
+
 }
+
