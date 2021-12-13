@@ -247,8 +247,7 @@ public class PatientView {
         btnBack = new JButton("Back");
         btnBack.setBounds(50,400,100,30);
         btnBack.addActionListener(e -> {
-            frame.getContentPane().removeAll();
-            frame.repaint();
+            patientController.clearFrame(frame);
             main(frame);
         });
         editPanel.add(btnBack);
