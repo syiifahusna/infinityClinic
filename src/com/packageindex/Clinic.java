@@ -9,5 +9,4 @@ public abstract class Clinic {
         frame.repaint();
     }
 
-
 }

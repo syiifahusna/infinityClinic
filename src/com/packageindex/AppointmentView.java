@@ -164,6 +164,7 @@ public class AppointmentView {
         appointmentDetailPanel.add(lblNotes);
 
         JTextArea txtNotes = new JTextArea();
+        txtNotes.setEditable(false);
         JScrollPane scrollTxtNotes = new JScrollPane(txtNotes);
         scrollTxtNotes.setBounds(50, 140 ,190, 200);
         appointmentDetailPanel.add(scrollTxtNotes);
@@ -185,6 +186,8 @@ public class AppointmentView {
             patientAppointment(frame,patientId);
         });
         appointmentDetailPanel.add(btnBack);
+
+        appointmentController.fillAppointmentDetail(appointmentId,lblDate,lblTime,txtNotes,listModel);
 
     }
 
@@ -256,7 +259,7 @@ public class AppointmentView {
         newAppointmentPanel.add(btnRemove);
 
         JLabel lblAddNewMessage = new JLabel();
-        lblAddNewMessage.setBounds(260, 360 ,130, 30);
+        lblAddNewMessage.setBounds(260, 350 ,250, 30);
         lblAddNewMessage.setVisible(false);
         newAppointmentPanel.add(lblAddNewMessage);
 

@@ -64,5 +64,36 @@ public class Appointment {
         return success;
     }
 
+    public ArrayList<String> getAppointmentDetail(String appointmentId){
+
+        ArrayList<String> appointment = new ArrayList<>();
+        try {
+            dbConnect.setCon();
+            Connection con = dbConnect.getCon();
+
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("Select * From appointment Where id = '" + appointmentId +"'");
+
+            if (rs.next()) {
+
+                appointment.add(rs.getString(1));//add col 1 into row
+                appointment.add(rs.getString(2));
+                appointment.add(rs.getString(3));
+                appointment.add(rs.getString(4));
+                appointment.add(rs.getString(5));
+                appointment.add(rs.getString(6));
+
+            }else{
+                System.out.println("No Record Found");
+            }
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return appointment;
+
+    }
 
 }
