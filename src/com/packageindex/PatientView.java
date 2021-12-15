@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class PatientView {
 
     private JFrame frame;
-    private JPanel mainPanel,registerPanel,editPanel,infoPanel;
+    private JPanel mainPanel,registerPanel,editPanel;
     private JLabel lblPatient,lblSearch,lblPatientId,lblRegisterMessage,lblUpdateMessage;
     private JButton btnRegisterPatient,btnBack, btnRegister, btnSearch, btnUpdate;
     private JTextField txtSearch,txtName,txtTel,txtAddress;
@@ -255,99 +255,6 @@ public class PatientView {
         patientController.fillEditForm(id, txtName, txtTel, txtAddress);
 
         return editPanel;
-    }
-
-    public JPanel patientInfo(JFrame frame, String id){
-        infoPanel = new JPanel();
-        infoPanel.setBackground(new Color(255, 237,204));
-        infoPanel.setBounds(0,0,500,500);
-        infoPanel.setLayout(null);
-        frame.add(infoPanel);
-
-        //Adding Label to panel
-        lblPatient = new JLabel("Patient " + id + " Info");
-        lblPatient.setBounds(50,20,100,30);
-        infoPanel.add(lblPatient);
-
-        JLabel lblName = new JLabel("Patient Name:");
-        lblName.setBounds(50, 60 ,130, 30);
-        infoPanel.add(lblName);
-
-        JLabel lblTel = new JLabel("Tel:");
-        lblTel.setBounds(50, 100 ,130, 30);
-        infoPanel.add(lblTel);
-
-        JLabel lblAddress = new JLabel("Address:");
-        lblAddress.setBounds(50, 140 ,130, 30);
-        infoPanel.add(lblAddress);
-
-        txtName = new JTextField();
-        txtName.setBounds(150, 60 ,200, 30);
-        txtName.setEditable(false);
-        infoPanel.add(txtName);
-
-        txtTel = new JTextField();
-        txtTel.setBounds(150, 100 ,200, 30);
-        txtTel.setEditable(false);
-        infoPanel.add(txtTel);
-
-        txtAddress = new JTextField();
-        txtAddress.setBounds(150, 140 ,200, 30);
-        txtAddress.setEditable(false);
-        infoPanel.add(txtAddress);
-
-        //========= Table Start Here===========
-        //dummy data
-        String[][] tbody=
-                {
-                        {"101","Amit","670000"},
-                        {"102","Jai","780000"},
-                        {"103","May","780000"},
-                };
-
-        String[] thead={"Id","Name","Tel"};
-
-        //calling the boolean editCellAt to prevent editable cell;
-        tablePatient = new JTable(tbody,thead){
-            public boolean editCellAt(int row, int column, java.util.EventObject e) {
-                return false;
-            }
-        };
-
-        tablePatient.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                //prevent calling twice
-                if(!e.getValueIsAdjusting()){
-//                    System.out.println(tablePatient.getValueAt(tablePatient.getSelectedRow(), 0).toString());
-//                    frame.getContentPane().removeAll();
-//                    frame.repaint();
-//                    edit(frame,tablePatient.getValueAt(tablePatient.getSelectedRow(), 0).toString());
-                }
-            }
-        });
-
-        //=========Table End Here===========
-
-        scrollPane = new JScrollPane(tablePatient);
-        scrollPane.setBounds(50,190,400,200);
-        infoPanel.add(scrollPane);
-
-
-
-
-
-
-        btnBack = new JButton("Back");
-        btnBack.setBounds(50,400,100,30);
-        btnBack.addActionListener(e -> {
-//            frame.getContentPane().removeAll();
-//            frame.repaint();
-//            main(frame);
-        });
-        infoPanel.add(btnBack);
-
-        return infoPanel;
     }
 
 }

@@ -4,12 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
-public class PatientController{
-
-    public void clearFrame(JFrame frame){
-        frame.getContentPane().removeAll();
-        frame.repaint();
-    }
+public class PatientController extends Clinic{
 
     public void fillTablePatient(DefaultTableModel tableModel){
         tableModel.setRowCount(0);

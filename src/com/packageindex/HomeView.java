@@ -3,6 +3,7 @@ package com.packageindex;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,13 +16,17 @@ public class HomeView {
     private JButton btnPatient,btnDoctor,btnStaff,btnMedicine,btnSearch;
     private JTextField txtSearch ;
     private JTable tablePatient;
+    private DefaultTableModel tableModel;
     private JScrollPane scrollPane;
 
     HomeController home = new HomeController();
 
     public void doctorHome(){
+        PatientController patientController = new PatientController();
+
         JFrame frame = new JFrame();
         frame.setSize(500,500);
+        frame.setLocationRelativeTo(null);
         frame.setLayout(null);
 
         JPanel panel = new JPanel();
@@ -48,47 +53,36 @@ public class HomeView {
         btnSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String search = txtSearch.getText();
-                System.out.println(search);
+                tableModel.setRowCount(0);
+                String searchName = txtSearch.getText();
+                if(searchName.equals("")){
+                    patientController.fillTablePatient(tableModel);
+                }else{
+                    patientController.searchTablePatient(tableModel,searchName);
+                }
             }
         });
         panel.add(btnSearch);
 
         //========= Table Start Here===========
-        //dummy data
-        String[][] tbody=
-                {
-                        {"101","Amit","670000"},
-                        {"102","Jai","780000"},
-                        {"103","May","780000"},
-                };
+        tablePatient = new JTable();
+        tableModel = new DefaultTableModel();
+        tablePatient.setModel(tableModel);
 
-        String[] thead={"Id","Name","Tel"};
+        //fill table
+        patientController.fillTablePatient(tableModel);
 
-        tablePatient = new JTable(tbody,thead);
+        //disable table editor(style 2)
         tablePatient.setDefaultEditor(Object.class, null);
 
-        tablePatient.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                //prevent calling twice
-                if(!e.getValueIsAdjusting()){
-                    System.out.println(tablePatient.getValueAt(tablePatient.getSelectedRow(), 0).toString());
-                    frame.getContentPane().removeAll();
-                    frame.repaint();
+        home.rowSelectionClick(frame,tablePatient);
 
-                    //PatientView patientView = new PatientView("abc");
-                    //patientView.patientInfo(frame, tablePatient.getValueAt(tablePatient.getSelectedRow(), 0).toString());
-                }
-            }
-        });
 
         //=========Table End Here===========
 
         scrollPane = new JScrollPane(tablePatient);
         scrollPane.setBounds(50,150,400,300);
         panel.add(scrollPane);
-
 
         frame.setVisible(true);
         frame.addWindowListener(new WindowAdapter() {
